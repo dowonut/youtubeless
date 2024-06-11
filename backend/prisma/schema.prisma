@@ -1,0 +1,20 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "cargo prisma"
+    output   = "../src/prisma.rs"
+}
+
+model User {
+    id            String         @id @default(uuid())
+    displayName   String
+    subscriptions Subscription[]
+}
+
+model Subscription {
+    id    String @id @default(uuid())
+    users User[]
+}
