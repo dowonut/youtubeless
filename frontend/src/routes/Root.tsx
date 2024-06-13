@@ -1,4 +1,4 @@
-import "./root.css";
+import "./Root.css";
 
 function Root() {
   return (
