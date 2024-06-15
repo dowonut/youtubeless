@@ -14,3 +14,4 @@ serde = {version = "1.0.203", features = ["derive"]}
 reqwest = {version = "0.12", features = ["json"]}
 dotenv = "0.15.0"
 serde_json = "1.0.117"
+rocket_cors = "0.6.0"

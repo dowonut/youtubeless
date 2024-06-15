@@ -1,7 +1,6 @@
 use std::sync::Arc;
-
-use rocket::{http::Status, serde::json::Json, serde::Deserialize, serde::Serialize, Request};
-
+use rocket::{http::Status, http::Method, serde::json::Json, serde::Deserialize, serde::Serialize, Request};
+use rocket_cors::{AllowedOrigins, CorsOptions};
 use dotenv::dotenv;
 
 #[macro_use]
@@ -9,7 +8,6 @@ extern crate rocket;
 
 #[allow(warnings, unused)]
 pub mod prisma;
-
 use prisma::{subscription, user};
 
 #[derive(Clone)]
@@ -132,9 +130,12 @@ async fn rocket() -> _ {
 
     dotenv().ok();
 
+    let cors = CorsOptions::default().allowed_origins(AllowedOrigins::some_exact(&["http://127.0.0.1:8002", "http://localhost:8002"])).allowed_methods(vec![Method::Get].into_iter().map(From::from).collect()).allow_credentials(true);
+
     rocket::build()
         .manage(Context { db })
         .register("/", catchers![not_found, default_catcher])
+        .attach(cors.to_cors().unwrap())
         .mount(
             "/",
             routes![index, get_users, get_subscriptions, get_channels],
