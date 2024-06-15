@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use rocket::{http::Status, serde::json::Json, Request};
+use rocket::{http::Status, serde::json::Json, serde::Deserialize, serde::Serialize, Request};
 
 use dotenv::dotenv;
 
@@ -18,6 +18,21 @@ pub struct Context {
 }
 
 pub type Ctx = rocket::State<Context>;
+
+// Structs
+
+#[derive(Deserialize, Serialize, Debug)]
+#[serde(crate = "rocket::serde")]
+struct Channel {
+    id: String,
+    title: String,
+    custom_url: String,
+    description: String,
+    thumbnail: String,
+    subscriber_count: String,
+    view_count: String,
+    video_count: String,
+}
 
 // Routing
 
@@ -39,23 +54,54 @@ async fn get_subscriptions(ctx: &Ctx) -> Json<Vec<subscription::Data>> {
 }
 
 #[get("/search?<query>")]
-async fn get_channels(query: &str) {
-    println!("{query}");
-
+async fn get_channels(query: &str) -> Option<Json<Vec<Channel>>> {
     let youtube_api_key =
         std::env::var("YOUTUBE_API_KEY").expect("YOUTUBE_API_KEY must be defined.");
 
+    // Make request to YouTube API
     let resp: serde_json::Value = reqwest::get(format!(
-        "https://www.googleapis.com/youtube/v3/search?part=id&key={youtube_api_key}"
+        "https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&forHandle={query}&maxResults=10&key={youtube_api_key}"
     ))
     .await
     .unwrap()
     .json()
-    // .text()
     .await
     .unwrap();
 
-    println!("{resp:#?}");
+    // Iterate through response items and build channel vector
+    let mut final_items: Vec<Channel> = Vec::new();
+    if let serde_json::Value::Array(items) = &resp["items"] {
+        for item in items {
+            let channel = Channel {
+                id: item["id"].as_str().unwrap().to_string(),
+                title: item["snippet"]["title"].as_str().unwrap().to_string(),
+                custom_url: item["snippet"]["customUrl"].as_str().unwrap().to_string(),
+                description: item["snippet"]["description"].as_str().unwrap().to_string(),
+                thumbnail: item["snippet"]["thumbnails"]["default"]["url"]
+                    .as_str()
+                    .unwrap()
+                    .to_string(),
+                subscriber_count: item["statistics"]["subscriberCount"]
+                    .as_str()
+                    .unwrap()
+                    .to_string(),
+                view_count: item["statistics"]["viewCount"]
+                    .as_str()
+                    .unwrap()
+                    .to_string(),
+                video_count: item["statistics"]["videoCount"]
+                    .as_str()
+                    .unwrap()
+                    .to_string(),
+            };
+
+            final_items.push(channel);
+        }
+
+        Some(Json(final_items))
+    } else {
+        None
+    }
 }
 
 // Catchers
