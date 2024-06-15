@@ -1,0 +1,19 @@
+#search {
+  display: flex;
+  flex-direction: column;
+}
+
+#searchBar {
+  background-color: var(--background-secondary);
+  font-size: larger;
+  border: none;
+  padding: 0.5em;
+  margin: 1em;
+  width: 50vw;
+  border-radius: 0.5em;
+  outline: none;
+}
+
+#searchBar:focus {
+  background-color: var(--background-tertiary);
+}

@@ -1,0 +1,9 @@
+:root {
+  --background-primary: hsl(0, 0%, 10%);
+  --background-secondary: hsl(0, 0%, 14%);
+  --background-tertiary: hsl(0, 0%, 18%);
+  --background-dark: hsl(0, 0%, 8%);
+
+  --text-primary: hsl(0, 0%, 80%);
+  --text-secondary: hsl(0, 0%, 40%);
+}

@@ -1,9 +1,16 @@
 import "./Root.css";
+import Navbar from "../components/Navbar/Navbar.tsx";
+import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer/Footer.tsx";
 
 function Root() {
   return (
     <>
-      <div id="navbar"></div>
+      <Navbar></Navbar>
+      <div id="content">
+        <Outlet></Outlet>
+      </div>
+      <Footer></Footer>
     </>
   );
 }
