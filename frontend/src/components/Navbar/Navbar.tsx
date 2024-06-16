@@ -9,19 +9,19 @@ function Navbar() {
       <div id="navbar">
         <div>
           <NavLink className="link" to="/">
-            <FontAwesomeIcon icon={faRss}></FontAwesomeIcon>
+            <FontAwesomeIcon className="icon" icon={faRss}></FontAwesomeIcon>
             Feed
           </NavLink>
         </div>
         <div>
           <NavLink className="link" to="/search">
-            <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
+            <FontAwesomeIcon className="icon" icon={faMagnifyingGlass}></FontAwesomeIcon>
             Search
           </NavLink>
         </div>
         <div>
           <NavLink className="link" to="/profile">
-            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            <FontAwesomeIcon className="icon" icon={faUser}></FontAwesomeIcon>
             Profile
           </NavLink>
         </div>

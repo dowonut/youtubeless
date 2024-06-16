@@ -1,9 +1,14 @@
 #channel {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
+  align-items: center;
   background-color: var(--background-dark);
   border-radius: 0.5em;
+  margin: 0.5em;
+  min-width: 40vw;
+  width: fit-content;
+  color: var(--text-primary);
 }
 
 #channel * {
@@ -12,4 +17,63 @@
 
 img {
   border-radius: 0.5em;
+}
+
+#title {
+  font-size: x-large;
+  font-weight: 500;
+}
+
+#text {
+  display: flex;
+  flex-direction: column;
+}
+
+#text p {
+  margin: 0px;
+}
+
+#description {
+  color: var(--text-secondary);
+  font-size: medium;
+}
+
+#statistics {
+  color: var(--text-tertiary);
+  font-size: medium;
+}
+
+#subscribe {
+  padding: 1em;
+  font-size: large;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5em;
+  margin-left: auto;
+}
+
+.not-subscribed {
+  background-color: var(--accent-secondary);
+  color: var(--text-inverted-primary);
+}
+
+.not-subscribed:hover {
+  background-color: var(--accent-tertiary);
+}
+
+.not-subscribed:active {
+  background-color: var(--accent-dark);
+}
+
+.subscribed {
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+}
+
+.subscribed:hover {
+  background-color: var(--background-tertiary);
+}
+
+.subscribed:active {
+  background-color: var(--background-primary);
 }

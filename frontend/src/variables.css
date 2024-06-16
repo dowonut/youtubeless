@@ -5,5 +5,13 @@
   --background-dark: hsl(0, 0%, 8%);
 
   --text-primary: hsl(0, 0%, 80%);
-  --text-secondary: hsl(0, 0%, 40%);
+  --text-secondary: hsl(0, 0%, 65%);
+  --text-tertiary: hsl(0, 0%, 50%);
+
+  --text-inverted-primary: hsl(0, 0%, 10%);
+
+  --accent-primary: hsl(40, 100%, 50%);
+  --accent-secondary: hsl(40, 100%, 56%);
+  --accent-tertiary: hsl(40, 100%, 62%);
+  --accent-dark: hsl(40, 80%, 44%);
 }
